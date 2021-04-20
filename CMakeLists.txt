@@ -52,7 +52,7 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 list(APPEND CORE_SOURCE_FILES)
 
 list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
-
+        src/paddle.cc
         )
 
 list(APPEND TEST_FILES tests/ping_pong_main_test.cc)
