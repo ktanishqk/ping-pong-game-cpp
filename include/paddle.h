@@ -2,13 +2,21 @@
 // Created by Tanishq Khurana on 4/20/21.
 //
 #include "cinder/gl/gl.h"
+#include <cinder/Color.h>
+
 #pragma once
 namespace pingpong {
     class Paddle {
     private:
-        int length_;
-        int width_;
-        ci::Color color_;
+        glm::vec2 top_left_position_;
+        glm::vec2 bottom_right_position_;
+    public:
+     Paddle();
+     Paddle(glm::vec2 top_right_position, glm::vec2 bottom_left_position);
+     void SetTopLeftPosition(const glm::vec2& position);
+     const glm::vec2& GetTopLeftPosition() const;
+      void SetBottomRightPosition(const glm::vec2& position);
+      const glm::vec2& GetBottomRightPosition() const;
     };
 }
 
