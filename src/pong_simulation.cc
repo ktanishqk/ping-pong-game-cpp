@@ -17,7 +17,15 @@ void PongSimulation::draw() {
   pong_table_.Display();
 }
 
-void PongSimulation::update() {
-  pong_table_.AdvanceOneFrame();
+void PongSimulation::keyDown(ci::app::KeyEvent event) {
+  switch (event.getCode()) {
+    case ci::app::KeyEvent::KEY_RIGHT:
+      pong_table_.GetPaddle1().AdvanceFrametoRight();
+      break;
+
+    case ci::app::KeyEvent::KEY_LEFT:
+      pong_table_.GetPaddle1().AdvanceFrametoLeft();
+      break;
+  }
 }
 }
