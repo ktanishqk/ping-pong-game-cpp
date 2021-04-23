@@ -25,11 +25,16 @@ namespace pingpong {
         /**
          * Displays the pong table
          */
-        void Display() const;
+        void Display();
         /**
          * Updates the velocity and the position of the ball
          */
-        void AdvanceOneFrame();
+        Paddle GetPaddle1(){
+          return paddle1;
+        }
+        Paddle GetPaddle2(){
+        return paddle2;
+        }
 
 
     private:
