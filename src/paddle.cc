@@ -11,17 +11,25 @@ Paddle::Paddle(glm::vec2 top_left_position, glm::vec2 bottom_right_position) {
   this->top_left_position_ = top_left_position;
   this->bottom_right_position_ = bottom_right_position;
 }
-const glm::vec2& Paddle::GetTopLeftPosition() const {
+glm::vec2& Paddle::GetTopLeftPosition(){
   return top_left_position_;
 }
-void Paddle::SetTopLeftPosition(const glm::vec2& position) {
+void Paddle::SetTopLeftPosition(glm::vec2& position) {
   top_left_position_ = position;
 }
-const glm::vec2& Paddle::GetBottomRightPosition() const {
+glm::vec2& Paddle::GetBottomRightPosition(){
   return bottom_right_position_;
 }
-void Paddle::SetBottomRightPosition(const glm::vec2& position) {
+void Paddle::SetBottomRightPosition(glm::vec2& position) {
   bottom_right_position_ = position;
+}
+void Paddle::AdvanceFrametoLeft() {
+  bottom_right_position_.x++;
+  top_left_position_.x++;
+}
+void Paddle::AdvanceFrametoRight() {
+  bottom_right_position_.x--;
+  top_left_position_.x--;
 }
 }
 

@@ -5,6 +5,8 @@
 #include <pong_simulation.h>
 #include <pong_table.h>
 
+#include "../../../include/cinder/app/RendererGl.h"
+
 using pingpong::PongSimulation;
 
 void prepareSettings(PongSimulation::Settings* settings) {

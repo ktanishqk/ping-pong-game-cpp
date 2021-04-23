@@ -13,10 +13,12 @@ namespace pingpong {
     public:
      Paddle();
      Paddle(glm::vec2 top_right_position, glm::vec2 bottom_left_position);
-     void SetTopLeftPosition(const glm::vec2& position);
-     const glm::vec2& GetTopLeftPosition() const;
-      void SetBottomRightPosition(const glm::vec2& position);
-      const glm::vec2& GetBottomRightPosition() const;
+     void SetTopLeftPosition(glm::vec2& position);
+     glm::vec2& GetTopLeftPosition();
+      void SetBottomRightPosition(glm::vec2& position);
+      glm::vec2& GetBottomRightPosition();
+      void AdvanceFrametoRight();
+      void AdvanceFrametoLeft();
     };
 }
 

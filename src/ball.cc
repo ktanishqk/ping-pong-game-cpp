@@ -40,4 +40,11 @@ void Ball::SetColor(const ci::Color& color) {
 void Ball::SetRadius(int radius) {
   this->radius_ = radius;
 }
+void Ball::ChangePosition() {
+
+}
+//void Ball::Display() {
+//  ci::gl::color("blue");
+//  ci::gl::drawSolidCircle()
+//}
 }
