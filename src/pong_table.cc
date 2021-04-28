@@ -8,7 +8,7 @@ namespace pingpong {
 PongTable::PongTable() {
   ci::app::setWindowSize(kWindowSize, kWindowSize);
   paddle1 = Paddle(vec2(500, 600), vec2(400, 650));
-  paddle2 = Paddle(vec2(500, 200), vec2(400, 250));
+  paddle2 = Paddle(vec2(500, 201), vec2(400, 250));
 }
 void PongTable::Display(){
   ci::gl::color(ci::Color("red"));
