@@ -54,7 +54,13 @@ class PongTable {
    * Advance One Frame function
    */
   void AdvanceOneFrame();
+  /**
+   * Function that displays the score of every instance of the game
+   */
+   void DisplayScore();
  private:
+  size_t hits_;
+  //std::size_t score_;
   Paddle paddle1_;
   Paddle paddle2_;
   Ball ball_;
