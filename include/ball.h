@@ -6,62 +6,48 @@
 #define FINAL_PROJECT_KTANISHQK_BALL_H
 #pragma once
 #include <cinder/Color.h>
+#include "cinder/gl/gl.h"
 using glm::vec2;
-
 namespace pingpong {
 class Ball {
  private:
   int radius_;
-  ci::Color color_;
   glm::vec2 velocity_;
   glm::vec2 position_;
 
  public:
   /**
-   * Constructor for a ball
+   * Default constructor for the ball
    */
-  Ball(int radius, ci::Color color, glm::vec2 position, glm::vec2 velocity);
   Ball();
+  /**
+   * Constructor for a ball that sets the radius, position, and the velocity of the ball
+   */
+  Ball(int radius, glm::vec2 position, glm::vec2 velocity);
+  /**
+   * Display function for the ball
+   */
   void Display();
   /**
-   *
+   * simple getter for the position of the ball
+   * @return the position vector of the ball
    */
   glm::vec2 GetPosition();
 
   /**
-   *
+   * Simple getter of the velocity of the ball
+   * @return the velocity vector of the ball
    */
-  glm::vec2 GetVelocity();
-
-  /**
-   *
-   */
+  glm::vec2& GetVelocity();
+/**
+ * Simple getter for the radius of the ball
+ * @return integer representing the radius of the ball
+ */
   int GetRadius();
-
   /**
-   *
+   * Change the position of the ball to make the ball move
    */
-  ci::Color GetColor();
-
-  /**
-   *
-   */
-  void SetPosition(const glm::vec2& position_);
-
-  /**
-   *
-   */
-  void SetVelocity(const glm::vec2& velocity_);
-
-  /**
-   *
-   */
-  void SetRadius(int radius_);
-
-  /**
-   *
-   */
-  void SetColor(const ci::Color& color_);
+  void ChangeBallPosition();
 };
 }  // namespace pingpong
 #endif  // FINAL_PROJECT_KTANISHQK_BALL_H
