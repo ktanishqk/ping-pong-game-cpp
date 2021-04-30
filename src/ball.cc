@@ -9,6 +9,9 @@ Ball::Ball(int radius, ci::Color color, glm::vec2 position, glm::vec2 velocity) 
   this->velocity_ = velocity;
   this->position_ = position;
 }
+Ball::Ball() {
+
+}
 glm::vec2 Ball::GetPosition() {
   return position_;
 }
@@ -40,11 +43,5 @@ void Ball::SetColor(const ci::Color& color) {
 void Ball::SetRadius(int radius) {
   this->radius_ = radius;
 }
-void Ball::ChangePosition() {
 
-}
-//void Ball::Display() {
-//  ci::gl::color("blue");
-//  ci::gl::drawSolidCircle()
-//}
 }

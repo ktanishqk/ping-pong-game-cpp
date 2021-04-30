@@ -21,7 +21,7 @@ class Ball {
    * Constructor for a ball
    */
   Ball(int radius, ci::Color color, glm::vec2 position, glm::vec2 velocity);
-  void ChangePosition();
+  Ball();
   void Display();
   /**
    *

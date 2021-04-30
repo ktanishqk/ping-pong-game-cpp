@@ -19,13 +19,22 @@ void PongSimulation::draw() {
 
 void PongSimulation::keyDown(ci::app::KeyEvent event) {
   switch (event.getCode()) {
-    case ci::app::KeyEvent::KEY_RIGHT:
-      pong_table_.GetPaddle1().AdvanceFrametoRight();
-      break;
+      case ci::app::KeyEvent::KEY_RIGHT:
+          pong_table_.MovePaddle1Right();
+          break;
 
-    case ci::app::KeyEvent::KEY_LEFT:
-      pong_table_.GetPaddle1().AdvanceFrametoLeft();
-      break;
+      case ci::app::KeyEvent::KEY_LEFT:
+          pong_table_.MovePaddle1Left();
+          break;
+
+      case ci::app::KeyEvent::KEY_a:
+          pong_table_.MovePaddle2Left();
+          break;
+
+      case ci::app::KeyEvent::KEY_d:
+          pong_table_.MovePaddle2Right();
+          break;
   }
-}
+  }
+
 }

@@ -26,20 +26,18 @@ namespace pingpong {
          * Displays the pong table
          */
         void Display();
-        /**
-         * Updates the velocity and the position of the ball
-         */
-        Paddle GetPaddle1(){
-          return paddle1;
-        }
-        Paddle GetPaddle2(){
-        return paddle2;
-        }
+
+        void MovePaddle1Left();
+        void MovePaddle1Right();
+        void MovePaddle2Left();
+        void MovePaddle2Right();
+        void HandleCollisionWithWall();
 
 
     private:
-      Paddle paddle1;
-      Paddle paddle2;
+      Paddle paddle1_;
+      Paddle paddle2_;
+      Ball ball_;
       // Size of the window
       const std::size_t kWindowSize = 900;
       const std::size_t kLeftEdge = 100;

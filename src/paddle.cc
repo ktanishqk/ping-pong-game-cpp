@@ -24,12 +24,12 @@ void Paddle::SetBottomRightPosition(glm::vec2& position) {
   bottom_right_position_ = position;
 }
 void Paddle::AdvanceFrametoLeft() {
-  bottom_right_position_.x++;
-  top_left_position_.x++;
+  bottom_right_position_.x -= 4;
+  top_left_position_.x -= 4;
 }
 void Paddle::AdvanceFrametoRight() {
-  bottom_right_position_.x--;
-  top_left_position_.x--;
+  bottom_right_position_.x += 4;
+  top_left_position_.x += 4;
 }
 }
 
