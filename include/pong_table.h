@@ -16,40 +16,56 @@
 using glm::vec2;
 
 namespace pingpong {
-    class PongTable {
-    public:
-        /**
-         * Constructor for a ball
-         */
-        PongTable();
-        /**
-         * Displays the pong table
-         */
-        void Display();
-
-        void MovePaddle1Left();
-        void MovePaddle1Right();
-        void MovePaddle2Left();
-        void MovePaddle2Right();
-        void HandleCollisionWithWall();
-
-
-    private:
-      Paddle paddle1_;
-      Paddle paddle2_;
-      Ball ball_;
-      // Size of the window
-      const std::size_t kWindowSize = 900;
-      const std::size_t kLeftEdge = 100;
-      // This is the right edge coordinate
-      const std::size_t kRightEdge = 800;
-//      // This is the right boundary coordinate
-//      const std::size_t kRightBoundary = 500;
-//      // This is the bottom boundary coordinate
-//      const std::size_t kBottomBoundary = 300;
-      // This is the top edge coordinate
-      const std::size_t kTopEdge = 100;
-      // This is the bottom edge coordinate
-    const std::size_t kBottomEdge = 800;
-    };
+class PongTable {
+ public:
+  /**
+   * Constructor for a ball
+   */
+  PongTable();
+  /**
+   * Displays the pong table
+   */
+  void Display();
+  /**
+   * Function to move paddle 1 to the left
+   */
+  void MovePaddle1Left();
+  /**
+   * Function to move paddle 1 to the right
+   */
+  void MovePaddle1Right();
+  /**
+   * Function to move paddle 2 to the left
+   */
+  void MovePaddle2Left();
+  /**
+   * Function to move paddle 2 to the right
+   */
+  void MovePaddle2Right();
+  /**
+   * Function that handles the collision of the ball with the walls of the ping pong table
+   */
+  void HandleCollisionWithWall();
+  /**
+   * Function that handles the collision of the ball with the paddles on the ping pong table
+   */
+  void HandleCollisionWithPaddle();
+  /**
+   * Advance One Frame function
+   */
+  void AdvanceOneFrame();
+ private:
+  Paddle paddle1_;
+  Paddle paddle2_;
+  Ball ball_;
+  // Size of the window
+  const std::size_t kWindowSize = 900;
+  const std::size_t kLeftEdge = 100;
+  // This is the right edge coordinate
+  const std::size_t kRightEdge = 800;
+  // This is the top edge coordinate
+  const std::size_t kTopEdge = 100;
+  // This is the bottom edge coordinate
+  const std::size_t kBottomEdge = 800;
+};
 }
