@@ -36,5 +36,7 @@ void PongSimulation::keyDown(ci::app::KeyEvent event) {
           break;
   }
   }
-
+void PongSimulation::update(){
+    pong_table_.AdvanceOneFrame();
+}
 }

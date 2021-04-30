@@ -16,15 +16,24 @@ namespace pingpong {
  */
 class PongSimulation : public ci::app::App {
  public:
-  PongSimulation();
-
   /**
-   *
+   * Default constructor for the simulation app
    */
-  void draw();
+  PongSimulation();
+/**
+ * Overriding the draw function from the Cinder App
+ */
+  void draw() override;
 
- // void update() override;
-  void keyDown(ci::app::KeyEvent event);
+ /**
+  * Overriding the keyDown function that allows for key input for the movement of the paddle
+  * @param event
+  */
+  void keyDown(ci::app::KeyEvent event) override;
+  /**
+   * Overriding the update function that allows for advancing the frame every second
+   */
+  void update() override;
 
  private:
   PongTable pong_table_;
