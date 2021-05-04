@@ -11,6 +11,7 @@ PongSimulation::PongSimulation() {
 }
 
 void PongSimulation::draw() {
+  ci::app::setWindowSize(1200, 900);
   ci::Color background_color("black");
   ci::gl::clear(background_color);
   pong_table_.Display();
