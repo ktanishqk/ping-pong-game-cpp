@@ -17,12 +17,12 @@ glm::vec2& Paddle::GetBottomRightPosition(){
   return bottom_right_position_;
 }
 void Paddle::AdvanceFrametoLeft() {
-  bottom_right_position_.x -= 4;
-  top_left_position_.x -= 4;
+  bottom_right_position_.x -= 8;
+  top_left_position_.x -= 8;
 }
 void Paddle::AdvanceFrametoRight() {
-  bottom_right_position_.x += 4;
-  top_left_position_.x += 4;
+  bottom_right_position_.x += 8;
+  top_left_position_.x += 8;
 }
 void Paddle::Display() {
     ci::gl::drawSolidRect(ci::Rectf(top_left_position_, bottom_right_position_));
