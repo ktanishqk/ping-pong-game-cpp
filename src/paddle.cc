@@ -6,14 +6,14 @@
 namespace pingpong {
 Paddle::Paddle() {
 }
-Paddle::Paddle(const glm::vec2& top_left_position, const glm::vec2& bottom_right_position) {
+Paddle::Paddle(const glm::vec2 &top_left_position, const glm::vec2 &bottom_right_position) {
   this->top_left_position_ = top_left_position;
   this->bottom_right_position_ = bottom_right_position;
 }
-glm::vec2& Paddle::GetTopLeftPosition(){
+glm::vec2 &Paddle::GetTopLeftPosition() {
   return top_left_position_;
 }
-glm::vec2& Paddle::GetBottomRightPosition(){
+glm::vec2 &Paddle::GetBottomRightPosition() {
   return bottom_right_position_;
 }
 void Paddle::AdvanceFrametoLeft() {
@@ -25,7 +25,6 @@ void Paddle::AdvanceFrametoRight() {
   top_left_position_.x += 8;
 }
 void Paddle::Display() {
-    ci::gl::drawSolidRect(ci::Rectf(top_left_position_, bottom_right_position_));
+  ci::gl::drawSolidRect(ci::Rectf(top_left_position_, bottom_right_position_));
 }
-}
-
+}// namespace pingpong
