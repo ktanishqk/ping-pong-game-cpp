@@ -3,43 +3,42 @@
 //
 #include "pong_table.h"
 
-
 namespace pingpong {
 PongTable::PongTable() {
   ci::app::setWindowSize(kExtendedWindowSize, kWindowSize);
   SetGame();
 }
 void PongTable::SetGame() {
-  paddle1_ = Paddle(vec2(5 * kLeftEdge, 6 * kLeftEdge), vec2(4 * kLeftEdge, 6 * kLeftEdge + kDisplayFactor));
-  paddle2_ = Paddle(vec2(5 * kLeftEdge, 2 * kLeftEdge), vec2(4 * kLeftEdge, 2 * kLeftEdge + kDisplayFactor));
-  ball_ = Ball(20, vec2(kWindowSize / 2, kWindowSize / 2), vec2(0.5, -2));
+  paddle1_ = Paddle(vec2(5 * kLeftEdge, 6 * kLeftEdge), vec2(4 * kLeftEdge, 6 * kLeftEdge + kDisplayFactor), kBlue);
+  paddle2_ = Paddle(vec2(5 * kLeftEdge, 2 * kLeftEdge), vec2(4 * kLeftEdge, 2 * kLeftEdge + kDisplayFactor), kGreen);
+  ball_ = Ball(20, vec2(kWindowSize / 2, kWindowSize / 2), vec2(0.5, -2), ci::Color(kBlack));
 }
 void PongTable::Display() {
+  cinder::Font welcome_font("times new roman", 50);
+  cinder::Font gamertag_font("times new roman", 20);
+  cinder::Font instructions_font("times new roman", 30);
   // Making the window for the game
   ci::gl::color(ci::Color(kRed));
   ci::gl::drawSolidRect(
       ci::Rectf(vec2(kLeftEdge, kTopEdge), vec2(kRightEdge, kBottomEdge)));
   // Making the welcome page with the gamer tag and give instructions for the game
   if (game_state_ == GameState::NewGame) {
-    ci::gl::drawStringCentered(kWelcomeMessage, vec2(kWindowSize / 2, (kWindowSize - 3 * kDisplayFactor) / 2));
-    ci::gl::drawStringCentered(kGamerTagBlue, vec2(kWindowSize / 2, (kWindowSize - 2 * kDisplayFactor) / 2));
-    ci::gl::drawStringCentered(kGamerTagGreen, vec2(kWindowSize / 2, (kWindowSize - kDisplayFactor) / 2));
-    ci::gl::drawStringCentered(kInstructions, vec2(kWindowSize / 2, (kWindowSize) / 2));
+    ci::gl::drawStringCentered(kWelcomeMessage, vec2(kWindowSize / 2, (kWindowSize - 5 * kDisplayFactor) / 2), ci::ColorA(1, 1, 1, 1), welcome_font);
+    ci::gl::drawStringCentered(kGamerTagBlue, vec2(kWindowSize / 2, (kWindowSize - 2 * kDisplayFactor) / 2), ci::ColorA(1, 1, 1, 1), gamertag_font);
+    ci::gl::drawStringCentered(kGamerTagGreen, vec2(kWindowSize / 2, (kWindowSize - kDisplayFactor) / 2), ci::ColorA(1, 1, 1, 1), gamertag_font);
+    ci::gl::drawStringCentered(kInstructions, vec2(kWindowSize / 2, (kWindowSize + kDisplayFactor) / 2), ci::ColorA(1, 1, 1, 1), instructions_font);
     ci::gl::drawStringCentered(kGreenInstructions,
-                               vec2(kWindowSize / 2, (kWindowSize + kDisplayFactor) / 2));
+                               vec2(kWindowSize / 2, (kWindowSize + 3 * kDisplayFactor) / 2), ci::ColorA(1, 1, 1, 1), gamertag_font);
     ci::gl::drawStringCentered(kBlueInstructions,
-                               vec2(kWindowSize / 2, (kWindowSize + 2 * kDisplayFactor) / 2));
+                               vec2(kWindowSize / 2, (kWindowSize + 4 * kDisplayFactor) / 2), ci::ColorA(1, 1, 1, 1), gamertag_font);
     // Making the current game state to actually play the game
   } else if (game_state_ == GameState::CurrentGame) {
     DisplayScoreboard();
     ci::gl::color(ci::Color(kRed));
     ci::gl::drawSolidRect(
         ci::Rectf(vec2(kLeftEdge, kTopEdge), vec2(kRightEdge, kBottomEdge)));
-    ci::gl::color(ci::Color(kBlue));
     paddle1_.Display();
-    ci::gl::color(ci::Color(kGreen));
     paddle2_.Display();
-    ci::gl::color(ci::Color(kBlack));
     ball_.Display();
   }
 }
@@ -75,6 +74,7 @@ void PongTable::HandleCollisionWithWall() {
   }
 }
 void PongTable::HandleCollisionWithPaddle() {
+  ci::Color &color = ball_.GetColor();
   glm::vec2 ball_position = ball_.GetPosition();
   glm::vec2 &current_velocity = ball_.GetVelocity();
   glm::vec2 paddle_lower_position = paddle1_.GetBottomRightPosition();
@@ -85,16 +85,14 @@ void PongTable::HandleCollisionWithPaddle() {
        && (paddle_lower_position.x < ball_position.x)
        && (ball_position.x < paddle_upper_position.x))) {
     current_velocity.y = -current_velocity.y;
-    ci::gl::color(ci::Color("red"));
-    ball_.Display();
+    color = paddle1_.GetColor();
     hits_++;
   }
   if (((abs(ball_position.y - paddle_lower_position_2.y) < ball_.GetRadius())
        && (paddle_lower_position_2.x < ball_position.x)
        && (ball_position.x < paddle_upper_position_2.x))) {
     current_velocity.y = -current_velocity.y;
-    ci::gl::color(ci::Color("green"));
-    ball_.Display();
+    color = paddle2_.GetColor();
     hits_++;
   }
 }
@@ -147,8 +145,8 @@ void PongTable::ManageGameScore() {
 void PongTable::DisplayScoreboard() {
   ci::gl::color(ci::Color(kWhite));
   ci::gl::drawStrokedRect(ci::Rectf(vec2(kExtendedWindowSize - 2 * kDisplayFactor, kRightEdge / 2), vec2(kWindowSize + kDisplayFactor, kRightEdge / 4)));
-  ci::gl::drawStringCentered("SCOREBOARD", vec2(1025, (kRightEdge)/ 3.5));
-  ci::gl::drawStringCentered("BluePlayer Score: " + std::to_string(score_blue_), vec2(1025, (kRightEdge)/ 3));
-  ci::gl::drawStringCentered("GreenPlayer Score: " + std::to_string(score_green_), vec2(1025, (kRightEdge)/ 2.5));
+  ci::gl::drawStringCentered("SCOREBOARD", vec2(1025, (kRightEdge) / 3.5));
+  ci::gl::drawStringCentered("BluePlayer Score: " + std::to_string(score_blue_), vec2(1025, (kRightEdge) / 3));
+  ci::gl::drawStringCentered("GreenPlayer Score: " + std::to_string(score_green_), vec2(1025, (kRightEdge) / 2.5));
 }
 }// namespace pingpong
