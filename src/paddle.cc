@@ -6,8 +6,7 @@
 namespace pingpong {
 Paddle::Paddle() {
 }
-Paddle::Paddle(glm::vec2 top_left_position, glm::vec2 bottom_right_position) {
-
+Paddle::Paddle(const glm::vec2& top_left_position, const glm::vec2& bottom_right_position) {
   this->top_left_position_ = top_left_position;
   this->bottom_right_position_ = bottom_right_position;
 }

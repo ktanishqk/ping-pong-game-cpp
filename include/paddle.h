@@ -26,7 +26,7 @@ class Paddle {
    * @param top_right_position
    * @param bottom_left_position
    */
-  Paddle(glm::vec2 top_right_position, glm::vec2 bottom_left_position);
+  Paddle(const glm::vec2& top_right_position, const glm::vec2& bottom_left_position);
   /**
    * Simple getter for the top left position of the paddle
    * @return the top left position vector
