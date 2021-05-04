@@ -17,7 +17,9 @@ void PongTable::Display() {
   ci::gl::drawSolidRect(
       ci::Rectf(vec2(kLeftEdge, kTopEdge), vec2(kRightEdge, kBottomEdge)));
   if (game_state_ == GameState::NewGame) {
-    ci::gl::drawStringCentered("Welcome to Ping-Pong! Gamertag: ", vec2(kWindowSize / 2, kWindowSize / 2));
+    ci::gl::drawStringCentered("Welcome to Ping-Pong!", vec2(kWindowSize / 2, kWindowSize / 2));
+    ci::gl::drawStringCentered("Player 1 Gamertag: ", vec2(kWindowSize / 2, kWindowSize / 2));
+    ci::gl::drawStringCentered("Player 2 Gamertag: ", vec2(kWindowSize / 2, kWindowSize / 2));
     game_state_ = GameState::CurrentGame;
   } else if (game_state_ == GameState::CurrentGame) {
     ci::gl::color(ci::Color("red"));
@@ -84,9 +86,11 @@ void PongTable::HandleCollisionWithPaddle() {
   }
 }
 void PongTable::AdvanceOneFrame() {
-  ball_.ChangeBallPosition();
-  HandleCollisionWithPaddle();
-  HandleCollisionWithWall();
+  if (game_state_ == GameState::CurrentGame) {
+    ball_.ChangeBallPosition();
+    HandleCollisionWithPaddle();
+    HandleCollisionWithWall();
+  }
 }
 void PongTable::HandlePlayerMovement(ci::app::KeyEvent event) {
   if (game_state_ == GameState::CurrentGame) {
