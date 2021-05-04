@@ -5,19 +5,19 @@
 #ifndef FINAL_PROJECT_KTANISHQK_PONG_TABLE_H
 #define FINAL_PROJECT_KTANISHQK_PONG_TABLE_H
 
-#endif //FINAL_PROJECT_KTANISHQK_PONG_TABLE_H
+#endif//FINAL_PROJECT_KTANISHQK_PONG_TABLE_H
 #pragma once
 
-#include <cinder/Color.h>
-#include <paddle.h>
-#include <ball.h>
-#include <cinder/Text.h>
-#include <string>
 #include "../../../include/cinder/app/App.h"
-#include "../../../include/glm/vec2.hpp"
-#include "../../../include/cinder/app/MouseEvent.h"
 #include "../../../include/cinder/app/KeyEvent.h"
+#include "../../../include/cinder/app/MouseEvent.h"
+#include "../../../include/glm/vec2.hpp"
 #include "pong_table.h"
+#include <ball.h>
+#include <cinder/Color.h>
+#include <cinder/Text.h>
+#include <paddle.h>
+#include <string>
 using glm::vec2;
 
 namespace pingpong {
@@ -72,15 +72,28 @@ class PongTable {
   /**
    * Function that manages the score of the game
    */
-  void ManageGameScore();
+  void ManageBallOffTable();
   /**
    * Function that sets or resets the game
    */
-   void SetGame();
-   /**
+  void SetGame();
+  /**
     * Display for scoreboard of the game
     */
-   void DisplayScoreboard();
+  void DisplayScoreboard();
+  /**
+   * Simple getter for the ball within the ping pong table
+   */
+  Ball GetBall();
+  /**
+   * Simple getter for the first paddle within the ping pong table
+   */
+  Paddle GetPaddle1();
+  /**
+   * Simple getter for the second paddle within the ping pong table
+   */
+  Paddle GetPaddle2();
+
  private:
   GameState game_state_ = GameState::NewGame;
   size_t hits_;
@@ -98,19 +111,21 @@ class PongTable {
   const std::size_t kTopEdge = 100;
   // This is the bottom edge coordinate
   const std::size_t kBottomEdge = 800;
+  // This is the Coordinate required for scoreboard rectangle
+  const std::size_t kScoreboard = 1025;
   const std::string kWelcomeMessage = "Welcome to Ping-Pong!";
   const std::string kGamerTagBlue = "Player 1 Gamertag: BluePlayer";
   const std::string kGamerTagGreen = "Player 2 Gamertag: GreenPlayer";
   const std::string kInstructions = "INSTRUCTIONS:";
   const std::string kGreenInstructions = "For GreenPlayer, use the arrow keys to move the paddle left or right.";
   const std::string kBlueInstructions = "For BluePlayer, use the a and d keys to move the paddle left or right.";
-  const char *const  kWhite = "white";
-  const char *const  kRed = "red";
-  const char *const  kBlue = "blue";
-  const char *const  kGreen = "green";
-  const char *const  kBlack = "black";
+  const char *const kWhite = "white";
+  const char *const kRed = "red";
+  const char *const kBlue = "blue";
+  const char *const kGreen = "green";
+  const char *const kBlack = "black";
   const size_t kDisplayFactor = 50;
   size_t score_green_ = 0;
   size_t score_blue_ = 0;
 };
-}
+}// namespace pingpong
