@@ -11,11 +11,24 @@
 #include <cinder/Color.h>
 #include <paddle.h>
 #include <ball.h>
+#include <cinder/Text.h>
 #include "../../../include/cinder/app/App.h"
 #include "../../../include/glm/vec2.hpp"
+#include "../../../include/cinder/app/MouseEvent.h"
+#include "../../../include/cinder/app/KeyEvent.h"
+#include "pong_table.h"
 using glm::vec2;
 
 namespace pingpong {
+
+enum class GameState {
+  NewGame,
+  CurrentGame,
+  RestartGame,
+  EndGame,
+  Leaderboard,
+};
+
 class PongTable {
  public:
   /**
@@ -55,10 +68,16 @@ class PongTable {
    */
   void AdvanceOneFrame();
   /**
-   * Function that displays the score of every instance of the game
+   * Function that restarts the game
    */
-   void DisplayScore();
+  void RestartGame();
+  /**
+   * Function to handle movement of the paddle using input
+   */
+   void HandlePlayerMovement(ci::app::KeyEvent event);
+
  private:
+  GameState game_state_;
   size_t hits_;
   //std::size_t score_;
   Paddle paddle1_;

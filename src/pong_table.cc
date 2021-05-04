@@ -8,19 +8,28 @@ PongTable::PongTable() {
   ci::app::setWindowSize(kWindowSize, kWindowSize);
   paddle1_ = Paddle(vec2(500, 600), vec2(400, 650));
   paddle2_ = Paddle(vec2(500, 200), vec2(400, 250));
-  ball_ = Ball(20, vec2(kWindowSize/2, kWindowSize/2), vec2(0.5, -2));
+  ball_ = Ball(20, vec2(kWindowSize/2, kWindowSize/2), vec2(0.5, -1));
+  game_state_ = GameState::NewGame;
   //score_ = 0;
 }
 void PongTable::Display() {
   ci::gl::color(ci::Color("red"));
   ci::gl::drawSolidRect(
       ci::Rectf(vec2(kLeftEdge, kTopEdge), vec2(kRightEdge, kBottomEdge)));
-  ci::gl::color(ci::Color("blue"));
-  paddle1_.Display();
-  ci::gl::color(ci::Color("green"));
-  paddle2_.Display();
-  ci::gl::color(ci::Color("black"));
-  ball_.Display();
+  if (game_state_ == GameState::NewGame) {
+    ci::gl::drawStringCentered("Welcome to Ping-Pong! Gamertag: ", vec2(kWindowSize / 2, kWindowSize / 2));
+    game_state_ = GameState::CurrentGame;
+  } else if (game_state_ == GameState::CurrentGame) {
+    ci::gl::color(ci::Color("red"));
+    ci::gl::drawSolidRect(
+        ci::Rectf(vec2(kLeftEdge, kTopEdge), vec2(kRightEdge, kBottomEdge)));
+    ci::gl::color(ci::Color("blue"));
+    paddle1_.Display();
+    ci::gl::color(ci::Color("green"));
+    paddle2_.Display();
+    ci::gl::color(ci::Color("black"));
+    ball_.Display();
+  }
 }
 
 void PongTable::MovePaddle1Left() {
@@ -35,11 +44,15 @@ void PongTable::MovePaddle1Right() {
 }
 
 void PongTable::MovePaddle2Left() {
-  paddle2_.AdvanceFrametoLeft();
+  if (paddle2_.GetBottomRightPosition().x > 100) {
+    paddle2_.AdvanceFrametoLeft();
+  }
 }
 
 void PongTable::MovePaddle2Right() {
-  paddle2_.AdvanceFrametoRight();
+  if (paddle2_.GetTopLeftPosition().x < 800) {
+    paddle2_.AdvanceFrametoRight();
+  }
 }
 void PongTable::HandleCollisionWithWall() {
   glm::vec2 current_position = ball_.GetPosition();
@@ -74,15 +87,31 @@ void PongTable::AdvanceOneFrame() {
   ball_.ChangeBallPosition();
   HandleCollisionWithPaddle();
   HandleCollisionWithWall();
-  DisplayScore();
-  std::cout << paddle1_.GetTopLeftPosition();
 }
-void PongTable::DisplayScore() {
-if (ball_.GetPosition().x > 815 || ball_.GetPosition().y < 100) {
-//  if (hits_ % 2 == 0) {
-    ci::gl::drawStringCentered("Hello", glm::vec2(kWindowSize/2,kWindowSize/2), ci::Color("white"));
-//  }
-}
-}
+void PongTable::HandlePlayerMovement(ci::app::KeyEvent event) {
+  if (game_state_ == GameState::CurrentGame) {
+    switch (event.getCode()) {
+      case ci::app::KeyEvent::KEY_RIGHT:MovePaddle1Right();
+        break;
 
+      case ci::app::KeyEvent::KEY_LEFT:MovePaddle1Left();
+        break;
+
+      case ci::app::KeyEvent::KEY_a:MovePaddle2Left();
+        break;
+
+      case ci::app::KeyEvent::KEY_d:MovePaddle2Right();
+        break;
+    }
+  } else if (game_state_ == GameState::NewGame) {
+      switch (event.getCode()) {
+        case ci::app::KeyEvent::KEY_SPACE:
+          game_state_ = GameState::CurrentGame;
+        break;
+    }
+  }
+}
+//void PongTable::RestartGame() {
+//  PongTable();
+//}
 }  // namespace pingpong
