@@ -24,7 +24,7 @@ class Ball {
   /**
    * Constructor for a ball that sets the radius, position, and the velocity of the ball
    */
-  Ball(int radius, glm::vec2 position, glm::vec2 velocity, ci::Color color);
+  Ball(int radius, const glm::vec2& position, const glm::vec2& velocity, const ci::Color& color);
   /**
    * Display function for the ball
    */
@@ -44,7 +44,7 @@ class Ball {
  * Simple getter for the radius of the ball
  * @return integer representing the radius of the ball
  */
-  int GetRadius();
+  int &GetRadius();
   /**
    * Change the position of the ball to make the ball move
    */

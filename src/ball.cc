@@ -4,7 +4,7 @@
 
 #include "ball.h"
 namespace pingpong {
-Ball::Ball(int radius, glm::vec2 position, glm::vec2 velocity, ci::Color color) {
+Ball::Ball(int radius, const glm::vec2& position, const glm::vec2& velocity, const ci::Color& color) {
   this->radius_ = radius;
   this->velocity_ = velocity;
   this->position_ = position;
@@ -19,7 +19,7 @@ glm::vec2 Ball::GetPosition() {
 glm::vec2 &Ball::GetVelocity() {
   return velocity_;
 }
-int Ball::GetRadius() {
+int &Ball::GetRadius() {
   return radius_;
 }
 void Ball::ChangeBallPosition() {
