@@ -12,6 +12,7 @@
 #include <paddle.h>
 #include <ball.h>
 #include <cinder/Text.h>
+#include <string>
 #include "../../../include/cinder/app/App.h"
 #include "../../../include/glm/vec2.hpp"
 #include "../../../include/cinder/app/MouseEvent.h"
@@ -25,8 +26,6 @@ enum class GameState {
   NewGame,
   CurrentGame,
   RestartGame,
-  EndGame,
-  Leaderboard,
 };
 
 class PongTable {
@@ -74,9 +73,10 @@ class PongTable {
   /**
    * Function to handle movement of the paddle using input
    */
-   void HandlePlayerMovement(ci::app::KeyEvent event);
+  void HandlePlayerMovement(const ci::app::KeyEvent &event);
 
  private:
+  const std::size_t kExtendedWindowSize = 1200;
   GameState game_state_;
   size_t hits_;
   //std::size_t score_;
@@ -92,5 +92,17 @@ class PongTable {
   const std::size_t kTopEdge = 100;
   // This is the bottom edge coordinate
   const std::size_t kBottomEdge = 800;
+  const std::string kWelcomeMessage = "Welcome to Ping-Pong!";
+  const std::string kGamerTagBlue = "Player 1 Gamertag: BluePlayer";
+  const std::string kGamerTagGreen = "Player 2 Gamertag: GreenPlayer";
+  const std::string kInstructions = "INSTRUCTIONS:";
+  const std::string kGreenInstructions = "For GreenPlayer, use the arrow keys to move the paddle left or right.";
+  const std::string kBlueInstructions = "For BluePlayer, use the a and d keys to move the paddle left or right.";
+  const char *const  kWhite = "white";
+  const char *const  kRed = "red";
+  const char *const  kBlue = "blue";
+  const char *const  kGreen = "green";
+  const char *const  kBlack = "black";
+  const size_t kDisplayFactor = 50;
 };
 }
