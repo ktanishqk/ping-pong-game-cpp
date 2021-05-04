@@ -25,7 +25,6 @@ namespace pingpong {
 enum class GameState {
   NewGame,
   CurrentGame,
-  RestartGame,
 };
 
 class PongTable {
@@ -67,22 +66,29 @@ class PongTable {
    */
   void AdvanceOneFrame();
   /**
-   * Function that restarts the game
-   */
-  void RestartGame();
-  /**
    * Function to handle movement of the paddle using input
    */
   void HandlePlayerMovement(const ci::app::KeyEvent &event);
-
+  /**
+   * Function that manages the score of the game
+   */
+  void ManageGameScore();
+  /**
+   * Function that sets or resets the game
+   */
+   void SetGame();
+   /**
+    * Display for scoreboard of the game
+    */
+   void DisplayScoreboard();
  private:
-  const std::size_t kExtendedWindowSize = 1200;
-  GameState game_state_;
+  GameState game_state_ = GameState::NewGame;
   size_t hits_;
   //std::size_t score_;
   Paddle paddle1_;
   Paddle paddle2_;
   Ball ball_;
+  const std::size_t kExtendedWindowSize = 1200;
   // Size of the window
   const std::size_t kWindowSize = 900;
   const std::size_t kLeftEdge = 100;
@@ -104,5 +110,7 @@ class PongTable {
   const char *const  kGreen = "green";
   const char *const  kBlack = "black";
   const size_t kDisplayFactor = 50;
+  size_t score_green_ = 0;
+  size_t score_blue_ = 0;
 };
 }
