@@ -16,6 +16,7 @@ class Paddle {
    * Stores the vector representing the bottom right coordinate of the paddle
    */
   glm::vec2 bottom_right_position_;
+  ci::Color color_;
  public:
   /**
    * Default Constructor for the Paddle
@@ -26,7 +27,7 @@ class Paddle {
    * @param top_right_position
    * @param bottom_left_position
    */
-  Paddle(const glm::vec2& top_right_position, const glm::vec2& bottom_left_position);
+  Paddle(const glm::vec2& top_right_position, const glm::vec2& bottom_left_position, ci::Color color);
   /**
    * Simple getter for the top left position of the paddle
    * @return the top left position vector
@@ -49,6 +50,10 @@ class Paddle {
    * Display function for the paddle
    */
   void Display();
+  /**
+   * Simple getter for the color of the paddle
+   */
+  ci::Color &GetColor();
 };
 }
 
