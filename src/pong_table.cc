@@ -212,29 +212,16 @@ void PongTable::AdvanceOneFrame() {
   }
 }
 void PongTable::HandlePaddleAutomaticMovement() {
-  vec2 ball_centre = ball_.GetPosition();
-  vec2 &ball_velocity = ball_.GetVelocity();
-  vec2 paddle_comp_centre = vec2(paddle2_.GetTopLeftPosition().x - paddle2_.GetBottomRightPosition().x, paddle2_.GetTopLeftPosition().y - paddle2_.GetBottomRightPosition().y);
-  float dist = glm::length(paddle_comp_centre - ball_centre);
-  if (dist > 0 && dist < 100) {
-    ball_velocity += 0.2;
-  }
-  if (dist >= 100 && dist < 200) {
-    ball_velocity += 0.2;
-  }
-  if (dist >= 200 && dist < 300) {
-    ball_velocity += 0.2;
-  }
-  if (dist >= 300 && dist < 400) {
-    ball_velocity += 0.2;
-  }
-  while(ball_centre.x <= (paddle_comp_centre.x + 30) || ball_centre.x > (paddle_comp_centre.x - 30)) {
-    if (ball_centre.x >= 400) {
-      paddle2_.AdvanceFrametoRight();
+    vec2 ball_centre = ball_.GetPosition();
+    vec2 paddle_centre_left = paddle2_.GetTopLeftPosition();
+    vec2 paddle_centre_right = paddle2_.GetBottomRightPosition();
+
+    if (paddle_centre_left.x > ball_centre.x) {
+      MovePaddle2Left();
     }
-    if (ball_centre.x < 400) {
-      paddle2_.AdvanceFrametoLeft();
-    }
+
+  if (ball_centre.x > paddle_centre_right.x) {
+    MovePaddle2Right();
   }
 }
 void PongTable::DisplayScoreboard() {
