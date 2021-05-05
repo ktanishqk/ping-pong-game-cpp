@@ -6,4 +6,4 @@ Week 2: Work on building functionality for person vs person game with functional
 
 Week 3: Work on building a comp vs person game (working on collision, automatic movement of paddles) with a leaderboard that supports both people and computer players.
 
-Extra functionality: change the color of the ball and the paddle with every hit and showcase the speed of the ball after the hit. 
+Extra functionality: change the color of the ball and the paddle with every hit. 
