@@ -5,9 +5,17 @@
 
 namespace pingpong {
 PongTable::PongTable() {
+  std::cout << "Blue Player Gamer Tag: ";
+  std::cin >> blue_player_gamer_tag_;
+  std::cout << "Green Player Gamer Tag: ";
+  std::cin >> green_player_gamer_tag_;
   SetGame();
+  if (green_player_gamer_tag_ == "comp") {
+    game_state_ = GameState::NewGameCvP;
+  }
 }
 void PongTable::SetGame() {
+
   paddle1_ = Paddle(vec2(5 * kLeftEdge, 6 * kLeftEdge),
                     vec2(4 * kLeftEdge, 6 * kLeftEdge + kDisplayFactor), kBlue);
   paddle2_ = Paddle(vec2(5 * kLeftEdge, 2 * kLeftEdge),
@@ -23,12 +31,12 @@ void PongTable::Display() {
   ci::gl::drawSolidRect(
       ci::Rectf(vec2(kLeftEdge, kTopEdge), vec2(kRightEdge, kBottomEdge)));
   // Making the welcome page with the gamer tag and give instructions for the game
-  if (game_state_ == GameState::NewGame) {
+  if (game_state_ == GameState::NewGamePvP) {
     ci::gl::drawStringCentered(kWelcomeMessage, vec2(kWindowSize / 2, (kWindowSize - 5 * kDisplayFactor) / 2),
                                ci::ColorA(1, 1, 1, 1), welcome_font);
-    ci::gl::drawStringCentered(kGamerTagBlue, vec2(kWindowSize / 2, (kWindowSize - 2 * kDisplayFactor) / 2),
+    ci::gl::drawStringCentered(kGamerTagBlue + blue_player_gamer_tag_, vec2(kWindowSize / 2, (kWindowSize - 2 * kDisplayFactor) / 2),
                                ci::ColorA(1, 1, 1, 1), gamertag_font);
-    ci::gl::drawStringCentered(kGamerTagGreen, vec2(kWindowSize / 2, (kWindowSize - kDisplayFactor) / 2),
+    ci::gl::drawStringCentered(kGamerTagGreen + green_player_gamer_tag_, vec2(kWindowSize / 2, (kWindowSize - kDisplayFactor) / 2),
                                ci::ColorA(1, 1, 1, 1), gamertag_font);
     ci::gl::drawStringCentered(kInstructions, vec2(kWindowSize / 2, (kWindowSize + kDisplayFactor) / 2),
                                ci::ColorA(1, 1, 1, 1), instructions_font);
@@ -39,7 +47,29 @@ void PongTable::Display() {
                                vec2(kWindowSize / 2, (kWindowSize + 4 * kDisplayFactor) / 2),
                                ci::ColorA(1, 1, 1, 1), gamertag_font);
     // Making the current game state to actually play the game
-  } else if (game_state_ == GameState::CurrentGame) {
+  }
+  if (game_state_ == GameState::NewGameCvP) {
+    ci::gl::drawStringCentered(kWelcomeMessage, vec2(kWindowSize / 2, (kWindowSize - 5 * kDisplayFactor) / 2),
+                               ci::ColorA(1, 1, 1, 1), welcome_font);
+    ci::gl::drawStringCentered(kGamerTagBlue + blue_player_gamer_tag_, vec2(kWindowSize / 2, (kWindowSize - 2 * kDisplayFactor) / 2),
+                               ci::ColorA(1, 1, 1, 1), gamertag_font);
+    ci::gl::drawStringCentered(kGamerTagGreen + kComp, vec2(kWindowSize / 2, (kWindowSize - kDisplayFactor) / 2),
+                               ci::ColorA(1, 1, 1, 1), gamertag_font);
+    ci::gl::drawStringCentered(kInstructions, vec2(kWindowSize / 2, (kWindowSize + kDisplayFactor) / 2),
+                               ci::ColorA(1, 1, 1, 1), instructions_font);
+    ci::gl::drawStringCentered(kBlueInstructions,
+                               vec2(kWindowSize / 2, (kWindowSize + 4 * kDisplayFactor) / 2),
+                               ci::ColorA(1, 1, 1, 1), gamertag_font);
+    // Making the current game state to actually play the game
+  } else if (game_state_ == GameState::CurrentGamePvP) {
+    DisplayScoreboard();
+    ci::gl::color(ci::Color(kRed));
+    ci::gl::drawSolidRect(
+        ci::Rectf(vec2(kLeftEdge, kTopEdge), vec2(kRightEdge, kBottomEdge)));
+    paddle1_.Display();
+    paddle2_.Display();
+    ball_.Display();
+  } else if (game_state_ == GameState::CurrentGameCvP) {
     DisplayScoreboard();
     ci::gl::color(ci::Color(kRed));
     ci::gl::drawSolidRect(
@@ -93,18 +123,16 @@ void PongTable::HandleCollisionWithPaddle() {
        && (ball_position.x < paddle_upper_position.x))) {
     current_velocity.y = -current_velocity.y;
     color = paddle1_.GetColor();
-    hits_++;
   }
   if (((abs(ball_position.y - paddle_lower_position_2.y) < ball_.GetRadius())
        && (paddle_lower_position_2.x < ball_position.x)
        && (ball_position.x < paddle_upper_position_2.x))) {
     current_velocity.y = -current_velocity.y;
     color = paddle2_.GetColor();
-    hits_++;
   }
 }
 void PongTable::AdvanceOneFrame() {
-  if (game_state_ == GameState::CurrentGame) {
+  if (game_state_ == GameState::CurrentGamePvP) {
     ball_.ChangeBallPosition();
     HandleCollisionWithPaddle();
     HandleCollisionWithWall();
@@ -112,7 +140,7 @@ void PongTable::AdvanceOneFrame() {
   }
 }
 void PongTable::HandlePlayerMovement(const ci::app::KeyEvent &event) {
-  if (game_state_ == GameState::CurrentGame) {
+  if (game_state_ == GameState::CurrentGamePvP) {
     switch (event.getCode()) {
       case ci::app::KeyEvent::KEY_RIGHT:
         MovePaddle1Right();
@@ -133,10 +161,28 @@ void PongTable::HandlePlayerMovement(const ci::app::KeyEvent &event) {
         SetGame();
         break;
     }
-  } else if (game_state_ == GameState::NewGame) {
+  } else if (game_state_ == GameState::NewGamePvP) {
     switch (event.getCode()) {
       case ci::app::KeyEvent::KEY_SPACE:
-        game_state_ = GameState::CurrentGame;
+        game_state_ = GameState::CurrentGamePvP;
+        break;
+    }
+  } else if (game_state_ == GameState::NewGameCvP) {
+    switch (event.getCode()) {
+      case ci::app::KeyEvent::KEY_SPACE:
+        game_state_ = GameState::CurrentGamePvP;
+        break;
+    }
+  } else if (game_state_ == GameState::CurrentGameCvP) {
+    switch (event.getCode()) {
+      case ci::app::KeyEvent::KEY_RIGHT:
+        MovePaddle1Right();
+        break;
+      case ci::app::KeyEvent::KEY_LEFT:
+        MovePaddle1Left();
+        break;
+      case ci::app::KeyEvent::KEY_SPACE:
+        SetGame();
         break;
     }
   }
@@ -158,10 +204,10 @@ void PongTable::ManageBallOffTable() {
 void PongTable::DisplayScoreboard() {
   ci::gl::color(ci::Color(kWhite));
   ci::gl::drawStrokedRect(ci::Rectf(vec2(kExtendedWindowSize - 2 * kDisplayFactor, kRightEdge / 2),
-                                         vec2(kWindowSize + kDisplayFactor, kRightEdge / 4)));
+                                    vec2(kWindowSize + kDisplayFactor, kRightEdge / 4)));
   ci::gl::drawStringCentered("SCOREBOARD", vec2(kScoreboard, (kRightEdge) / 3.5));
-  ci::gl::drawStringCentered("BluePlayer Score: " + std::to_string(score_blue_), vec2(kScoreboard, (kRightEdge) / 3));
-  ci::gl::drawStringCentered("GreenPlayer Score: " + std::to_string(score_green_), vec2(kScoreboard, (kRightEdge) / 2.5));
+  ci::gl::drawStringCentered(blue_player_gamer_tag_ + "'s Score: " + std::to_string(score_blue_), vec2(kScoreboard, (kRightEdge) / 3));
+  ci::gl::drawStringCentered(green_player_gamer_tag_ + "'s Score: " + std::to_string(score_green_), vec2(kScoreboard, (kRightEdge) / 2.5));
 }
 Ball PongTable::GetBall() {
   return ball_;

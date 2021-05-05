@@ -23,8 +23,10 @@ using glm::vec2;
 namespace pingpong {
 
 enum class GameState {
-  NewGame,
-  CurrentGame,
+  NewGamePvP,
+  NewGameCvP,
+  CurrentGamePvP,
+  CurrentGameCvP,
 };
 
 class PongTable {
@@ -95,8 +97,9 @@ class PongTable {
   Paddle GetPaddle2();
 
  private:
-  GameState game_state_ = GameState::NewGame;
-  size_t hits_;
+  std::string blue_player_gamer_tag_;
+  std::string green_player_gamer_tag_;
+  GameState game_state_ = GameState::NewGamePvP;
   //std::size_t score_;
   Paddle paddle1_;
   Paddle paddle2_;
@@ -114,11 +117,12 @@ class PongTable {
   // This is the Coordinate required for scoreboard rectangle
   const std::size_t kScoreboard = 1025;
   const std::string kWelcomeMessage = "Welcome to Ping-Pong!";
-  const std::string kGamerTagBlue = "Player 1 Gamertag: BluePlayer";
-  const std::string kGamerTagGreen = "Player 2 Gamertag: GreenPlayer";
+  const std::string kGamerTagBlue = "Player 1 Gamertag: ";
+  const std::string kGamerTagGreen = "Player 2 Gamertag: ";
+  const std::string kComp = "Computer";
   const std::string kInstructions = "INSTRUCTIONS:";
-  const std::string kGreenInstructions = "For GreenPlayer, use the arrow keys to move the paddle left or right.";
-  const std::string kBlueInstructions = "For BluePlayer, use the a and d keys to move the paddle left or right.";
+  const std::string kGreenInstructions = "For GreenPlayer, use a and d keys to move the paddle left or right.";
+  const std::string kBlueInstructions = "For BluePlayer, use the the arrow keys to move the paddle left or right.";
   const char *const kWhite = "white";
   const char *const kRed = "red";
   const char *const kBlue = "blue";
