@@ -7,7 +7,7 @@ This game is quite similar to the classic ping pong game from the 80s. I was ins
 # Code Style
 [![js-standard-style](https://img.shields.io/badge/style-google%20c%2B%2B-brightgreen)](https://github.com/feross/standard)
 
-# Frameworks used
+# Frameworks
 [![js-standard-style](https://img.shields.io/badge/library-cinder-brightgreen)](https://github.com/feross/standard)
 
 [Cinder](https://libcinder.org/docs/) was used for graphics, window creation, and overall creation of the app
