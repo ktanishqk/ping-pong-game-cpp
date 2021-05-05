@@ -253,10 +253,10 @@ Paddle PongTable::GetPaddle1() {
 Paddle PongTable::GetPaddle2() {
   return paddle2_;
 }
-size_t PongTable::GetBluePlayerScore() {
+size_t PongTable::GetBluePlayerScore() const {
   return score_blue_;
 }
-size_t PongTable::GetGreenPlayerScore() {
+size_t PongTable::GetGreenPlayerScore() const {
   return score_green_;
 }
 }// namespace pingpong
