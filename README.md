@@ -16,6 +16,10 @@ This game is quite similar to the classic ping pong game from the 80s. I was ins
 
 [CMake](https://libcinder.org/docs/) was used for project management, involving packaging, testing, and deployment of the game.
 
+[![js-standard-style](https://img.shields.io/badge/testing-Catch2-green)](https://github.com/feross/standard)
+
+[Catch2](https://github.com/catchorg/Catch2) was used for making test cases for the game
+
 ## Setup
 
 In order to set up the game, one must first follow the following instructions to install Cinder on their platform:
