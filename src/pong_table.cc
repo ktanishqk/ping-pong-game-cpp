@@ -4,6 +4,7 @@
 #include "pong_table.h"
 
 namespace pingpong {
+
 PongTable::PongTable() {
   std::cout << "Blue Player Gamer Tag: ";
   std::cin >> blue_player_gamer_tag_;

@@ -10,6 +10,9 @@
 using glm::vec2;
 namespace pingpong {
 class Ball {
+  /**
+   * Class handling the ball functionality in the game
+   */
  private:
   int radius_;
   glm::vec2 velocity_;

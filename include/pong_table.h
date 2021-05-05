@@ -23,6 +23,9 @@ using glm::vec2;
 namespace pingpong {
 
 enum class GameState {
+  /**
+   * Enum class that handles the game state for display change
+   */
   NewGamePvP,
   NewGameCvP,
   CurrentGamePvP,
@@ -30,6 +33,10 @@ enum class GameState {
 };
 
 class PongTable {
+  /**
+* Pong Table class that handles all functionality of the game alongside the display
+*/
+
  public:
   /**
    * Constructor for a ball
@@ -107,6 +114,7 @@ class PongTable {
    * Function that handles the automatic movement of the paddle during comp v. person game
    */
   void HandlePaddleAutomaticMovement();
+
  private:
   std::string blue_player_gamer_tag_;
   std::string green_player_gamer_tag_;

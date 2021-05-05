@@ -9,7 +9,7 @@
 
 namespace pingpong {
 /**
- * An app for visualizing the behavior of an ideal gas.
+ * An app for visualizing the ping pong game.
  */
 class PongSimulation : public ci::app::App {
  public:

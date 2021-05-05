@@ -7,6 +7,9 @@
 #pragma once
 namespace pingpong {
 class Paddle {
+  /**
+   * Class handling the functionality of the paddle in the game
+   */
  private:
   /**
    * Stores the vector representing the top left coordinate of the paddle
