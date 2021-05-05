@@ -79,12 +79,21 @@ TEST_CASE("Collision Check") {
     REQUIRE(pong_table.GetBall().GetVelocity().y == require.y);
   }
   SECTION("Left Wall collision") {
+    pong_table.GetBall().GetVelocity() = vec2(1, 0);
     while((abs(ball_position.x - 100) < 20)) {
       pong_table.AdvanceOneFrame();
     }
-    pong_table.HandleCollisionWithPaddle();
+    pong_table.HandleCollisionWithWall();
     glm::vec2 require = initial_velocity;
-    REQUIRE(pong_table.GetBall().GetVelocity().y == require.y);
+    REQUIRE(pong_table.GetBall().GetVelocity().x == require.x * -1);
+  }
+  SECTION("Right Wall collision") {
+    while((abs(ball_position.x - 800) < 20)) {
+      pong_table.AdvanceOneFrame();
+    }
+    pong_table.HandleCollisionWithWall();
+    glm::vec2 require = initial_velocity;
+    REQUIRE(pong_table.GetBall().GetVelocity().x == require.x * -1);
   }
 }
 }// namespace pingpong

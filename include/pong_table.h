@@ -95,7 +95,10 @@ class PongTable {
    * Simple getter for the second paddle within the ping pong table
    */
   Paddle GetPaddle2();
-
+  /**
+   * Function that handles the automatic movement of the paddle during comp v. person game
+   */
+  void HandlePaddleAutomaticMovement();
  private:
   std::string blue_player_gamer_tag_;
   std::string green_player_gamer_tag_;

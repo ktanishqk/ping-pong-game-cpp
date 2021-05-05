@@ -18,12 +18,12 @@ glm::vec2 &Paddle::GetBottomRightPosition() {
   return bottom_right_position_;
 }
 void Paddle::AdvanceFrametoLeft() {
-  bottom_right_position_.x -= 8;
-  top_left_position_.x -= 8;
+  bottom_right_position_.x -= 40;
+  top_left_position_.x -= 40;
 }
 void Paddle::AdvanceFrametoRight() {
-  bottom_right_position_.x += 8;
-  top_left_position_.x += 8;
+  bottom_right_position_.x += 40;
+  top_left_position_.x += 40;
 }
 void Paddle::Display() {
   ci::gl::color(color_);

@@ -131,14 +131,7 @@ void PongTable::HandleCollisionWithPaddle() {
     color = paddle2_.GetColor();
   }
 }
-void PongTable::AdvanceOneFrame() {
-  if (game_state_ == GameState::CurrentGamePvP) {
-    ball_.ChangeBallPosition();
-    HandleCollisionWithPaddle();
-    HandleCollisionWithWall();
-    ManageBallOffTable();
-  }
-}
+
 void PongTable::HandlePlayerMovement(const ci::app::KeyEvent &event) {
   if (game_state_ == GameState::CurrentGamePvP) {
     switch (event.getCode()) {
@@ -170,7 +163,7 @@ void PongTable::HandlePlayerMovement(const ci::app::KeyEvent &event) {
   } else if (game_state_ == GameState::NewGameCvP) {
     switch (event.getCode()) {
       case ci::app::KeyEvent::KEY_SPACE:
-        game_state_ = GameState::CurrentGamePvP;
+        game_state_ = GameState::CurrentGameCvP;
         break;
     }
   } else if (game_state_ == GameState::CurrentGameCvP) {
@@ -199,6 +192,47 @@ void PongTable::ManageBallOffTable() {
     score_green_++;
     // change ball color to black
     ball_.GetColor() = kBlack;
+  }
+}
+void PongTable::AdvanceOneFrame() {
+  if (game_state_ == GameState::CurrentGamePvP) {
+    ball_.ChangeBallPosition();
+    HandleCollisionWithPaddle();
+    HandleCollisionWithWall();
+    ManageBallOffTable();
+  }
+  if (game_state_ == GameState::CurrentGameCvP) {
+    ball_.ChangeBallPosition();
+    HandlePaddleAutomaticMovement();
+    HandleCollisionWithPaddle();
+    HandleCollisionWithWall();
+    ManageBallOffTable();
+  }
+}
+void PongTable::HandlePaddleAutomaticMovement() {
+  vec2 ball_centre = ball_.GetPosition();
+  vec2 &ball_velocity = ball_.GetVelocity();
+  vec2 paddle_comp_centre = vec2(paddle2_.GetTopLeftPosition().x - paddle2_.GetBottomRightPosition().x, paddle2_.GetTopLeftPosition().y - paddle2_.GetBottomRightPosition().y);
+  float dist = glm::length(paddle_comp_centre - ball_centre);
+  if (dist > 0 && dist < 100) {
+    ball_velocity += 0.2;
+  }
+  if (dist >= 100 && dist < 200) {
+    ball_velocity += 0.2;
+  }
+  if (dist >= 200 && dist < 300) {
+    ball_velocity += 0.2;
+  }
+  if (dist >= 300 && dist < 400) {
+    ball_velocity += 0.2;
+  }
+  while(ball_centre.x <= (paddle_comp_centre.x + 30) || ball_centre.x > (paddle_comp_centre.x - 30)) {
+    if (ball_centre.x >= 400) {
+      paddle2_.AdvanceFrametoRight();
+    }
+    if (ball_centre.x < 400) {
+      paddle2_.AdvanceFrametoLeft();
+    }
   }
 }
 void PongTable::DisplayScoreboard() {
