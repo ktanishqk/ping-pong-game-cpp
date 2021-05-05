@@ -46,8 +46,9 @@ void PongTable::Display() {
     ci::gl::drawStringCentered(kBlueInstructions,
                                vec2(kWindowSize / 2, (kWindowSize + 4 * kDisplayFactor) / 2),
                                ci::ColorA(1, 1, 1, 1), gamertag_font);
-    // Making the current game state to actually play the game
+
   }
+  // Making the current game state to actually play the game
   if (game_state_ == GameState::NewGameCvP) {
     ci::gl::drawStringCentered(kWelcomeMessage, vec2(kWindowSize / 2, (kWindowSize - 5 * kDisplayFactor) / 2),
                                ci::ColorA(1, 1, 1, 1), welcome_font);
@@ -81,24 +82,24 @@ void PongTable::Display() {
 }
 
 void PongTable::MovePaddle1Left() {
-  if (paddle1_.GetBottomRightPosition().x > 100) {
+  if (paddle1_.GetBottomRightPosition().x > 120) {
     paddle1_.AdvanceFrametoLeft();
   }
 }
 void PongTable::MovePaddle1Right() {
-  if (paddle1_.GetTopLeftPosition().x < 800) {
+  if (paddle1_.GetTopLeftPosition().x < 780) {
     paddle1_.AdvanceFrametoRight();
   }
 }
 
 void PongTable::MovePaddle2Left() {
-  if (paddle2_.GetBottomRightPosition().x > 100) {
+  if (paddle2_.GetBottomRightPosition().x > 120) {
     paddle2_.AdvanceFrametoLeft();
   }
 }
 
 void PongTable::MovePaddle2Right() {
-  if (paddle2_.GetTopLeftPosition().x < 800) {
+  if (paddle2_.GetTopLeftPosition().x < 780) {
     paddle2_.AdvanceFrametoRight();
   }
 }
@@ -251,5 +252,11 @@ Paddle PongTable::GetPaddle1() {
 }
 Paddle PongTable::GetPaddle2() {
   return paddle2_;
+}
+size_t PongTable::GetBluePlayerScore() {
+  return score_blue_;
+}
+size_t PongTable::GetGreenPlayerScore() {
+  return score_green_;
 }
 }// namespace pingpong

@@ -96,6 +96,14 @@ class PongTable {
    */
   Paddle GetPaddle2();
   /**
+   * Simple getter for the blue player score
+   */
+  size_t GetBluePlayerScore();
+  /**
+   * Simple getter for the green player score
+   */
+  size_t GetGreenPlayerScore();
+  /**
    * Function that handles the automatic movement of the paddle during comp v. person game
    */
   void HandlePaddleAutomaticMovement();
