@@ -20,7 +20,7 @@ This game is quite similar to the classic ping pong game from the 80s. I was ins
 
 [Catch2](https://github.com/catchorg/Catch2) was used for making test cases for the game
 
-## Setup
+# Setup 
 
 In order to set up the game, one must first follow the following instructions to install Cinder on their platform:
 https://courses.grainger.illinois.edu/cs126/sp2021/notes/cinder-installation-notes/
