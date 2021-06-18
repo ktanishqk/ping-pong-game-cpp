@@ -2,12 +2,13 @@
 
 #pragma once
 
-#include "../../../include/cinder/app/App.h"
-#include "../../../include/cinder/app/KeyEvent.h"
+
+
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "pong_table.h"
+#include "../../../include/cinder/app/App.h"
 
 namespace pingpong {
 /**
@@ -15,15 +16,24 @@ namespace pingpong {
  */
 class PongSimulation : public ci::app::App {
  public:
-  PongSimulation();
-
   /**
-   *
+   * Default constructor for the simulation app
    */
-  void draw() override ;
+  PongSimulation();
+/**
+ * Overriding the draw function from the Cinder App
+ */
+  void draw() override;
 
- // void update() override;
+ /**
+  * Overriding the keyDown function that allows for key input for the movement of the paddle
+  * @param event
+  */
   void keyDown(ci::app::KeyEvent event) override;
+  /**
+   * Overriding the update function that allows for advancing the frame every second
+   */
+  void update() override;
 
  private:
   PongTable pong_table_;

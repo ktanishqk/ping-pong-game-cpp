@@ -7,8 +7,7 @@
 
 namespace pingpong {
 
-PongSimulation::PongSimulation()
-    {
+PongSimulation::PongSimulation() {
 }
 
 void PongSimulation::draw() {
@@ -18,14 +17,9 @@ void PongSimulation::draw() {
 }
 
 void PongSimulation::keyDown(ci::app::KeyEvent event) {
-  switch (event.getCode()) {
-    case ci::app::KeyEvent::KEY_RIGHT:
-      pong_table_.GetPaddle1().AdvanceFrametoRight();
-      break;
-
-    case ci::app::KeyEvent::KEY_LEFT:
-      pong_table_.GetPaddle1().AdvanceFrametoLeft();
-      break;
+  pong_table_.HandlePlayerMovement(event);
   }
-}
+  void PongSimulation::update() {
+    pong_table_.AdvanceOneFrame();
+  }
 }
