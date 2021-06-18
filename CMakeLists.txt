@@ -54,6 +54,8 @@ list(APPEND CORE_SOURCE_FILES)
 list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
         src/paddle.cc
         src/ball.cc
+        src/pong_table.cc
+        src/pong_simulation.cc
         )
 
 list(APPEND TEST_FILES tests/ping_pong_main_test.cc)
