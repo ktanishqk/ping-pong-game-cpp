@@ -58,7 +58,7 @@ list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
         src/pong_simulation.cc
         )
 
-list(APPEND TEST_FILES tests/ping_pong_main_test.cc)
+list(APPEND TEST_FILES tests/test_game.cc)
 
 add_executable(pong-game apps/pong_game_comp.cc ${CORE_SOURCE_FILES})
 target_include_directories(pong-game PRIVATE include)

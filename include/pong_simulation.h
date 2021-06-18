@@ -2,17 +2,14 @@
 
 #pragma once
 
-
-
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "pong_table.h"
-#include "../../../include/cinder/app/App.h"
 
 namespace pingpong {
 /**
- * An app for visualizing the behavior of an ideal gas.
+ * An app for visualizing the ping pong game.
  */
 class PongSimulation : public ci::app::App {
  public:
@@ -20,12 +17,12 @@ class PongSimulation : public ci::app::App {
    * Default constructor for the simulation app
    */
   PongSimulation();
-/**
+  /**
  * Overriding the draw function from the Cinder App
  */
   void draw() override;
 
- /**
+  /**
   * Overriding the keyDown function that allows for key input for the movement of the paddle
   * @param event
   */
@@ -39,4 +36,4 @@ class PongSimulation : public ci::app::App {
   PongTable pong_table_;
 };
 
-}
+}// namespace pingpong
